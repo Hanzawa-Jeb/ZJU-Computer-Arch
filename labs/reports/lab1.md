@@ -12,7 +12,10 @@ Files to complete:
 ## HazardDetectionUnit.v
 - 用来检测Hazard，输出信号
 - 注意这里的~和!用法之间的差别，~是bitwise取反，!是整体取反
-
+- 先再这里注意一下forward_ctrl信号的作用，其实两个寄存器是相同的，0是正常通过，1是EXE阶段的ALU输出，2是MEM阶段的ALU输出，3是MEM阶段的Load输出，这三种情况，对应分别的forward_ctrl信号，将不同的内容进行前递，可以先把这几种情况给写好。如果有任意两项都是满足的，那么最终的输出必然是最后一种，也就是
+- forward_ctrl_ls是用来控制mux_forward_EXE这个多路选择器的。在为0的时候给出rs2_data_EXE，在为1的时候给出Datain_MEM，也就是刚刚从Mem中读取出来的数据，这个是专门适用于Load-Store Forwarding的，有自己独立的forwarding回路
+- PC_EN_IF就是IF阶段的Enable使能信号，所以在stall发生的时候，应该将这个信号设置为0，停止更新，所以信号取反即可
+- stall信号出现的时候，IFID寄存器应该stall，而IDEXE直接flush掉，相当于插入了一个bubble，IFID此时也是冻结住的，停止冻结之后，由下一个PC取指开始正常更新，向后传递
 
 ## CtrlUnit.v
 - 注意有关opcode, funct7等唯一性的相关思考
@@ -44,3 +47,8 @@ Files to complete:
 - ![alt text](image.png) 根据PPT中给出的图进行完整的连线，注意各个信号的命名即可
 - ALU前面的两个Source同样根据PPT中完成的画图进行具体的连线，注意这里的控制信号是根据前面控制单元中给出的信息进行具体完成，这里假设muxA的0输入为pc, 1输入为reg_data_1，muxB的0输入为imm, 1的输入为reg_data_2
 - mux_forward_EXE中同样使用PPT中对齐的部分完成即可，注意这里选择信号一定要和前面CtrlUnit中的设计与HazardDetectionUnit中对齐
+
+
+# Debugging
+![](image-2.png)
+从这个PC=080开始出现问题，后面就不正确了，发现这里是Branch指令，且Branchctrl信号为未知状态

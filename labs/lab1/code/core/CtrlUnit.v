@@ -154,22 +154,10 @@ module CtrlUnit(
 
     assign rs2use = (R_valid | S_valid | B_valid);                         //to fill sth. in 
 
-    assign hazard_optype = ;                  //to fill sth. in 
-
-    always @(*) begin
-        if (R_valid || I_valid || JALR || JAL || LUI || AUIPC) begin
-            hazard_optype = 2'b01;
-            // ALU Usage Optype
-        end else if (L_valid) begin
-            hazard_optype = 2'b10;
-            // Load Optype
-        end else if (S_valid) begin
-            hazard_optype = 2'b11;
-            // Store Optype
-        end else begin
-            hazard_optype = 2'b00;
-            // No Hazard
-        end
-    end
+    
+    assign hazard_optype = {2{R_valid || I_valid || JALR || JAL || LUI || AUIPC}} & 2'b01 |
+                           {2{L_valid}} & 2'b10 |
+                           {2{S_valid}} & 2'b11;
+                        //to fill sth. in 
 
 endmodule

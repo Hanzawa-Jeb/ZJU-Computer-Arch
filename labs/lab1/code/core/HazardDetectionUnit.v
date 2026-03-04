@@ -12,9 +12,15 @@ module HazardDetectionUnit(
 );
             //according to the diagram, design the Hazard Detection Unit
 
-    parameter hazard_optype_ALU = 2'b01;
-    parameter hazard_optype_LOAD = 2'b10;
-    parameter hazard_optype_STORE = 2'b11;
+    assign reg_FD_EN = 1;
+    assign reg_DE_EN = 1;
+    assign reg_EM_EN = 1;
+    assign reg_MW_EN = 1;
+    // Assign the four registers as enabled
+
+    parameter alu_hazard = 2'b01;
+    parameter load_hazard = 2'b10;
+    parameter store_hazard = 2'b11;
 
     reg[1:0] hazard_optype_EXE, hazard_optype_MEM;
 
@@ -24,25 +30,47 @@ module HazardDetectionUnit(
         // Consider the factor of register flush
     end
 
-    wire rs1_forward_1 = 
-    wire rs1_forward_stall = 
+    wire rs1_forward_stall = (rd_EXE != 5'b0) && rs1use_ID && (rs1_ID == rd_EXE) && 
+    (hazard_optype_ID != store_hazard && hazard_optype_EXE == load_hazard);
+    // Only when load-use happens, we need to stall for one cycle, we use the !store hazard as the condition
 
-    wire rs1_forward_2 = 
-    wire rs1_forward_3 = 
+    wire rs1_forward_1 = (rd_EXE != 5'b0) && rs1use_ID && (rs1_ID == rd_EXE) && (hazard_optype_EXE == alu_hazard);
+    // EXE ALU Output
+    wire rs1_forward_2 = (rd_MEM != 5'b0) && rs1use_ID && (rs1_ID == rd_MEM) && (hazard_optype_MEM == alu_hazard);
+    // MEM ALU Output 
+    wire rs1_forward_3 = (rd_MEM != 5'b0) && rs1use_ID && (rs1_ID == rd_MEM) && (hazard_optype_MEM == load_hazard);
+    // MEM DMEM Output
 
-    wire rs2_forward_1 = 
-    wire rs2_forward_stall = 
+    wire rs2_forward_stall = (rd_EXE != 5'b0) && rs2use_ID && (rs2_ID == rd_EXE) && 
+    (hazard_optype_ID != store_hazard && hazard_optype_EXE == load_hazard);
+
+    wire rs2_forward_1 = (rd_EXE != 5'b0) && rs2use_ID && (rs2_ID == rd_EXE) && (hazard_optype_EXE == alu_hazard);
+    wire rs2_forward_2 = (rd_MEM != 5'b0) && rs2use_ID && (rs2_ID == rd_MEM) && (hazard_optype_MEM == alu_hazard);
+    wire rs2_forward_3 = (rd_MEM != 5'b0) && rs2use_ID && (rs2_ID == rd_MEM) && (hazard_optype_MEM == load_hazard);
+    // The symmetric operation as rs1, only change the number of the register
+
+    assign forward_ctrl_A = {2{rs1_forward_1}} & alu_hazard |
+                            {2{rs1_forward_2}} & load_hazard |
+                            {2{rs1_forward_3}} & store_hazard;
+
+    assign forward_ctrl_B = {2{rs1_forward_1}} & alu_hazard |
+                            {2{rs1_forward_2}} & load_hazard |
+                            {2{rs1_forward_3}} & store_hazard;
     
-    wire rs2_forward_2 = 
-    wire rs2_forward_3 = 
+    assign forward_ctrl_ls = (rs2_EXE == rd_MEM) && (hazard_optype_EXE == store_hazard) && (hazard_optype_MEM == load_hazard);
+    // Specially for load-store hazard, another forwarding circuit
 
-    assign forward_ctrl_A = 
-    assign forward_ctrl_B = 
-    assign forward_ctrl_ls = 
+    wire general_stall = rs1_forward_stall || rs2_forward_stall;
+    // The general need for stalling
 
-    assign PC_EN_IF = 
-    assign reg_FD_stall = 
-    assign reg_FD_flush = 
-    assign reg_DE_flush = 
+    assign PC_EN_IF = !general_stall;
+    // When stall happens, the Instruction Fetch Process should end
+    assign reg_FD_stall = general_stall;
+    // IFID register should be stalled, as no update allowed
+    assign reg_DE_flush = general_stall;
+    // IDEXE register should be flushed, as a bubble to insert to the next stage
+    
+    assign reg_FD_flush = Branch_ID;
+    // If branching happened, then we need to flush the IFID reg to fetch instruction another time
 
 endmodule
