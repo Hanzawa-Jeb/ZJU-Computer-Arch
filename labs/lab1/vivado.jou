@@ -1,0 +1,15 @@
+#-----------------------------------------------------------
+# Vivado v2022.2 (64-bit)
+# SW Build 3671981 on Fri Oct 14 05:00:03 MDT 2022
+# IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
+# Start of session at: Tue Mar  3 18:51:52 2026
+# Process ID: 35292
+# Current directory: C:/Users/David_Y9000P/Desktop/CSCourses/arch/labs/lab1
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent22640 C:\Users\David_Y9000P\Desktop\CSCourses\arch\labs\lab1\Exp1.xpr
+# Log file: C:/Users/David_Y9000P/Desktop/CSCourses/arch/labs/lab1/vivado.log
+# Journal file: C:/Users/David_Y9000P/Desktop/CSCourses/arch/labs/lab1\vivado.jou
+# Running On: David-Y9000P, OS: Windows, CPU Frequency: 2419 MHz, CPU Physical cores: 24, Host memory: 34141 MB
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/David_Y9000P/Desktop/CSCourses/arch/labs/lab1/Exp1.xpr
+update_compile_order -fileset sources_1
