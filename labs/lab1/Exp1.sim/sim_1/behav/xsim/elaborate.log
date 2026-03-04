@@ -7,6 +7,29 @@ Pass Through NonSizing Optimizer
 WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 2 for port 'PCSource' [C:/Users/David_Y9000P/Desktop/CSCourses/arch/labs/lab1/code/core/RV32core.v:169]
 WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 32 for port 'Addr' [C:/Users/David_Y9000P/Desktop/CSCourses/arch/labs/lab1/code/core/RV32core.v:182]
 WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 2 for port 'DatatoReg' [C:/Users/David_Y9000P/Desktop/CSCourses/arch/labs/lab1/code/core/RV32core.v:186]
-WARNING: [VRFC 10-3091] actual bit length 1 differs from formal bit length 32 for port 'I1' [C:/Users/David_Y9000P/Desktop/CSCourses/arch/labs/lab1/code/core/RV32core.v:117]
 Completed static elaboration
-INFO: [XSIM 43-4323] No Change in HDL. Linking previously generated obj files to create kernel
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.debug_clk
+Compiling module xil_defaultlib.REG32
+Compiling module xil_defaultlib.add_32
+Compiling module xil_defaultlib.MUX2T1_32
+Compiling module xil_defaultlib.ROM_D
+Compiling module xil_defaultlib.REG_IF_ID
+Compiling module xil_defaultlib.CtrlUnit
+Compiling module xil_defaultlib.Regs
+Compiling module xil_defaultlib.ImmGen
+Compiling module xil_defaultlib.MUX4T1_32
+Compiling module xil_defaultlib.cmp_32
+Compiling module xil_defaultlib.HazardDetectionUnit
+Compiling module xil_defaultlib.REG_ID_EX
+Compiling module xil_defaultlib.ALU
+Compiling module xil_defaultlib.REG_EX_MEM
+Compiling module xil_defaultlib.RAM_B
+Compiling module xil_defaultlib.REG_MEM_WB
+Compiling module xil_defaultlib.CPUTEST
+Compiling module xil_defaultlib.RV32core
+Compiling module xil_defaultlib.core_sim
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot core_sim_behav

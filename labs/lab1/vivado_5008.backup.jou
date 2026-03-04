@@ -1,0 +1,47 @@
+#-----------------------------------------------------------
+# Vivado v2022.2 (64-bit)
+# SW Build 3671981 on Fri Oct 14 05:00:03 MDT 2022
+# IP Build 3669848 on Fri Oct 14 08:30:02 MDT 2022
+# Start of session at: Wed Mar  4 19:26:33 2026
+# Process ID: 5008
+# Current directory: C:/Users/David_Y9000P/Desktop/CSCourses/arch/labs/lab1
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent15728 C:\Users\David_Y9000P\Desktop\CSCourses\arch\labs\lab1\Exp1.xpr
+# Log file: C:/Users/David_Y9000P/Desktop/CSCourses/arch/labs/lab1/vivado.log
+# Journal file: C:/Users/David_Y9000P/Desktop/CSCourses/arch/labs/lab1\vivado.jou
+# Running On: David-Y9000P, OS: Windows, CPU Frequency: 2419 MHz, CPU Physical cores: 24, Host memory: 34141 MB
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/David_Y9000P/Desktop/CSCourses/arch/labs/lab1/Exp1.xpr
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs synth_1 -jobs 16
+wait_on_run synth_1
+set_property dataflow_viewer_settings "min_width=16"   [current_fileset]
+reset_run synth_1
+launch_runs synth_1 -jobs 16
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 16
+wait_on_run synth_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+reset_run synth_1
+launch_runs synth_1 -jobs 16
+wait_on_run synth_1
+launch_runs impl_1 -jobs 16
+wait_on_run impl_1
+reset_run impl_1
+launch_simulation
+open_wave_config C:/Users/David_Y9000P/Desktop/CSCourses/arch/labs/lab1/code/sim/core_sim_behav.wcfg
+source core_sim.tcl
+reset_run synth_1
+launch_runs synth_1 -jobs 16
+wait_on_run synth_1
+launch_runs impl_1 -jobs 16
+wait_on_run impl_1
+open_run synth_1 -name synth_1
+close_sim
+launch_simulation
+open_wave_config C:/Users/David_Y9000P/Desktop/CSCourses/arch/labs/lab1/code/sim/core_sim_behav.wcfg
+source core_sim.tcl
+close_sim

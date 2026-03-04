@@ -22,7 +22,7 @@ module HazardDetectionUnit(
     parameter load_hazard = 2'b10;
     parameter store_hazard = 2'b11;
 
-    reg[1:0] hazard_optype_EXE, hazard_optype_MEM;
+    reg[1:0] hazard_optype_EXE = 2'b00, hazard_optype_MEM = 2'b00;
 
     always @(posedge clk) begin
         hazard_optype_MEM <= hazard_optype_EXE & {2{~reg_EM_flush}};
@@ -51,11 +51,13 @@ module HazardDetectionUnit(
 
     assign forward_ctrl_A = {2{rs1_forward_1}} & alu_hazard |
                             {2{rs1_forward_2}} & load_hazard |
-                            {2{rs1_forward_3}} & store_hazard;
+                            {2{rs1_forward_3}} & store_hazard |
+                            2'b00;
 
-    assign forward_ctrl_B = {2{rs1_forward_1}} & alu_hazard |
-                            {2{rs1_forward_2}} & load_hazard |
-                            {2{rs1_forward_3}} & store_hazard;
+    assign forward_ctrl_B = {2{rs2_forward_1}} & alu_hazard |
+                            {2{rs2_forward_2}} & load_hazard |
+                            {2{rs2_forward_3}} & store_hazard |
+                            2'b00;
     
     assign forward_ctrl_ls = (rs2_EXE == rd_MEM) && (hazard_optype_EXE == store_hazard) && (hazard_optype_MEM == load_hazard);
     // Specially for load-store hazard, another forwarding circuit
@@ -72,5 +74,7 @@ module HazardDetectionUnit(
     
     assign reg_FD_flush = Branch_ID;
     // If branching happened, then we need to flush the IFID reg to fetch instruction another time
+
+    assign reg_EM_flush = 1'b0;
 
 endmodule

@@ -52,3 +52,9 @@ Files to complete:
 # Debugging
 ![](image-2.png)
 从这个PC=080开始出现问题，后面就不正确了，发现这里是Branch指令，且Branchctrl信号为未知状态
+![](image-3.png)
+这里发现一个没有根据rs2来进行判断的问题
+后面又发现一个很低级的typo，把data打成了date，不直到为什么仿真没有报错
+后来发现了这里的这个问题：
+![](image-4.png)
+这里的前面registers没有初始值，且这些flush信号也没有初始值，所以导致了这里未定义的问题，所以添加了最后的EM_flush为0，发现可以解决问题。
