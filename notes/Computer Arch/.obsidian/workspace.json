@@ -13,15 +13,58 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Lec1.md",
+                "file": "Lec2.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Lec1"
+              "title": "Lec2"
+            }
+          },
+          {
+            "id": "c7110d10299ef278",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Lec3.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Lec3"
+            }
+          },
+          {
+            "id": "fa2c8f38ce8d2640",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Lec4.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Lec4"
+            }
+          },
+          {
+            "id": "b3a47d16e8b566dd",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "未命名.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "未命名"
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "vertical"
@@ -183,9 +226,12 @@
       "bases:新建数据库": false
     }
   },
-  "active": "88042c7c7b0dc8ba",
+  "active": "b3a47d16e8b566dd",
   "lastOpenFiles": [
-    "欢迎.md",
-    "Lec1.md"
+    "Lec4.md",
+    "未命名.md",
+    "Lec3.md",
+    "Lec2.md",
+    "欢迎.md"
   ]
 }
