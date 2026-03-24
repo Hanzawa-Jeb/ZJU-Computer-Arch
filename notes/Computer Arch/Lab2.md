@@ -1,0 +1,8 @@
+前面的连线已经关于Core的连线完成了CtrlUnit等等的实现，接下来要完成的就是ExceptionUnit中的代码实现
+注意ExcepetionUnit中的代码作用，使用状态机来进行顺序性访问
+状态机的基本跳转方式设计好之后，我们要知道具体要设置哪些地方
+mstatus的作用是什么？
+- 例如保存MPIE，设置MIE等等bit
+注意我们还要设置csr_wsc_mode来设置写入的各种方式
+- 例如写入，bitwise or/and
+注意他这里代码中的reg实际上并不能说明就是register类型的变量，而是类似于systemverilog中的logic，可能会被综合为wire

@@ -1,0 +1,24 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:45 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Mon Jun 13 18:32:18 2022
+# Process ID: 10036
+# Current directory: C:/Users/Dell 7080/Desktop/Courses/CompArch/Code4Stu/Exp2
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent6436 C:\Users\Dell 7080\Desktop\Courses\CompArch\Code4Stu\Exp2\Exp2.xpr
+# Log file: C:/Users/Dell 7080/Desktop/Courses/CompArch/Code4Stu/Exp2/vivado.log
+# Journal file: C:/Users/Dell 7080/Desktop/Courses/CompArch/Code4Stu/Exp2\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project {C:/Users/Dell 7080/Desktop/Courses/CompArch/Code4Stu/Exp2/Exp2.xpr}
+INFO: [Project 1-313] Project file moved from 'C:/Users/Zonghui Wang/Desktop/risc v/code/Exp2' since last save.
+Scanning sources...
+Finished scanning sources
+INFO: [Project 1-230] Project 'Exp2.xpr' upgraded for this version of Vivado.
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'E:/Vivado/2020.2/data/ip'.
+open_project: Time (s): cpu = 00:00:12 ; elapsed = 00:00:05 . Memory (MB): peak = 1106.656 ; gain = 0.000
+update_compile_order -fileset sources_1
+exit
+INFO: [Common 17-206] Exiting Vivado at Wed Jun 15 12:37:07 2022...

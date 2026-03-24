@@ -60,28 +60,28 @@ module CtrlUnit(
     wire SRLI  = Iop & funct3_5 & funct7_0;
     wire SRAI  = Iop & funct3_5 & funct7_32;
 
-    wire BEQ = ;                            //to fill sth. in 
-    wire BNE = ;                            //to fill sth. in 
-    wire BLT = ;                            //to fill sth. in 
-    wire BGE = ;                            //to fill sth. in 
-    wire BLTU = ;                           //to fill sth. in 
-    wire BGEU = ;                           //to fill sth. in 
+    wire BEQ = Bop && funct3_0;                            //to fill sth. in 
+    wire BNE = Bop && funct3_1;                            //to fill sth. in 
+    wire BLT = Bop && funct3_4;                            //to fill sth. in 
+    wire BGE = Bop && funct3_5;                            //to fill sth. in 
+    wire BLTU = Bop && funct3_6;                           //to fill sth. in 
+    wire BGEU = Bop && funct3_7;                           //to fill sth. in 
 
-    wire LB =  ;                            //to fill sth. in 
-    wire LH =  ;                            //to fill sth. in 
-    wire LW =  ;                            //to fill sth. in 
-    wire LBU = ;                            //to fill sth. in 
-    wire LHU = ;                            //to fill sth. in 
+    wire LB =  Lop && funct3_0;                            //to fill sth. in 
+    wire LH =  Lop && funct3_1;                            //to fill sth. in 
+    wire LW =  Lop && funct3_2;                            //to fill sth. in 
+    wire LBU = Lop && funct3_4;                            //to fill sth. in 
+    wire LHU = Lop && funct3_5;                            //to fill sth. in 
 
-    wire SB = ;                             //to fill sth. in 
-    wire SH = ;                             //to fill sth. in 
-    wire SW = ;                             //to fill sth. in 
+    wire SB = Sop && funct3_0;                             //to fill sth. in 
+    wire SH = Sop && funct3_1;                             //to fill sth. in 
+    wire SW = Sop && funct3_2;                             //to fill sth. in 
 
-    wire LUI   = ;                          //to fill sth. in 
-    wire AUIPC = ;                          //to fill sth. in 
+    wire LUI   = opcode == 7'b0110111;                          //to fill sth. in 
+    wire AUIPC = opcode == 7'b0010111;                          //to fill sth. in 
 
-    wire JAL  = ;                           //to fill sth. in 
-    assign JALR = ;                        //to fill sth. in 
+    wire JAL  = opcode == 7'b1101111;                           //to fill sth. in 
+    assign JALR = (opcode == 7'b1100111) && funct3_0;                        //to fill sth. in 
 
     wire CSRRW = CSRop & funct3_1;
     wire CSRRS = CSRop & funct3_2;
@@ -101,7 +101,7 @@ module CtrlUnit(
     wire CSR_valid = CSRRW | CSRRS | CSRRC | CSRRWI | CSRRSI | CSRRCI;
 
 
-    assign Branch = ;                       //to fill sth. in 
+    assign Branch = JAL | JALR | (B_valid && cmp_res);                       //to fill sth. in 
 
     localparam Imm_type_I = 3'b001;
     localparam Imm_type_B = 3'b010;
@@ -115,11 +115,25 @@ module CtrlUnit(
                     {3{LUI | AUIPC}}              & Imm_type_U ;
 
     
-    assign cmp_ctrl = ;                         //to fill sth. in 
+    parameter cmp_EQ  = 3'b001;
+    parameter cmp_NE  = 3'b010;
+    parameter cmp_LT  = 3'b011;
+    parameter cmp_LTU = 3'b100;
+    parameter cmp_GE  = 3'b101;
+    parameter cmp_GEU = 3'b110;
 
-    assign ALUSrc_A = ;                         //to fill sth. in 
+    assign cmp_ctrl = {3{BEQ}} & cmp_EQ |
+                      {3{BNE}} & cmp_NE |
+                      {3{BLT}} & cmp_LT |
+                      {3{BLTU}} & cmp_LTU |
+                      {3{BGE}} & cmp_GE |
+                      {3{BGEU}} & cmp_GEU;     //to fill sth. in
 
-    assign ALUSrc_B = ;                         //to fill sth. in 
+
+    assign ALUSrc_A = (JALR | JAL | AUIPC);                         //to fill sth. in 
+
+    assign ALUSrc_B = (JALR | JAL | AUIPC | LUI | I_valid | L_valid | S_valid);                         //to fill sth. in 
+
 
     localparam ALU_ADD  = 4'b0001;
     localparam ALU_SUB  = 4'b0010;
@@ -154,11 +168,14 @@ module CtrlUnit(
 
     assign mem_r = L_valid;
 
-    assign rs1use =  ;                        //to fill sth. in 
+    assign rs1use = !(LUI | AUIPC | JAL);                        //to fill sth. in 
 
-    assign rs2use = ;                         //to fill sth. in 
-
-    assign hazard_optype = ;                  //to fill sth. in 
+    assign rs2use = (R_valid | S_valid | B_valid);                         //to fill sth. in 
+    
+    assign hazard_optype = {2{R_valid || I_valid || JALR || JAL || LUI || AUIPC}} & 2'b01 |
+                           {2{L_valid}} & 2'b10 |
+                           {2{S_valid}} & 2'b11;
+                        //to fill sth. in 
     
     assign csr_rw = CSR_valid;
 
